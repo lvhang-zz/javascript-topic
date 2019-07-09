@@ -15,7 +15,7 @@
 // };
 // console.log(extname("hello.jof.dsds"))
 
-// 二  记忆化斐波那契函数
+// 二  记忆法斐波那契函数
 // 1 1 2 3 5 8 13 21 34
 // 1 2 3 4 5 6 7  8  9
 /**const fibonacci = (n) => {
@@ -75,7 +75,7 @@ const extractStr = (str) => {
 extractStr('VPlAlH:xvLSCZ.scXjKCgGwCAe:ETKnqF.:vMPFFh.:zmPXSn.:dBaCWM. ');
 
 
-//请你完成一个 safeGet 函数，可以安全的获取无限多层次的数据，一旦数据不存在不会报错，会返回 undefined，
+// 四 请你完成一个 safeGet 函数，可以安全的获取无限多层次的数据，一旦数据不存在不会报错，会返回 undefined，
 var data = { a: { b: { c: 'ScriptOJ' } } };
 var data =  {"q":{"w":{"e":{"r":{"t":{"y":{"u":"ScriptOJ"}}}}}}};
 const safeGet = (data, path) => {
@@ -86,8 +86,7 @@ const safeGet = (data, path) => {
     var length = params.length;
     var tem = data;
     for(var i = 0;i < length;i++){
-
-        tem = tem[params[i]];
+        tem = tem[params[i]];// 一层层遍历属性 当属性存在 赋值覆盖 不存在 返回 undefined
         // console.log(tem);
         if(tem == undefined){
             return undefined;
@@ -95,10 +94,10 @@ const safeGet = (data, path) => {
     }
     return tem;
 };
-safeGet(data,"q.w.e.r.t.y.u.i.o.p.a.s.d.f.g.h.j.k.l.z.x.c.v");
+// safeGet(data,"q.w.e.r.t.y.u.i.o.p.a.s.d.f.g.h.j.k.l.z.x.c.v");
 
 
-/**用一个对象的数据来表示一个矩形的位置和大小：
+/** 五 用一个对象的数据来表示一个矩形的位置和大小：
  {
   x: 100,
   y: 100,
@@ -113,7 +112,22 @@ safeGet(data,"q.w.e.r.t.y.u.i.o.p.a.s.d.f.g.h.j.k.l.z.x.c.v");
  * **/
 
 const isOverlap = (rect1, rect2) => {
-    console.log("哈哈哈哈哈哈哈哈哈");
+    var x1 = rect1.x + rect1.width;
+    var y1 = rect1.y + rect1.height;
+    var x2 = rect2.x + rect2.width;
+    var y2 = rect2.y + rect2.height;
+    if(rect1.x > x2){
+        return false
+    }else if(rect1.y > y2){
+        return false
+    }else if(x1 < rect2.x){
+        return false
+    }else if(y1 < rect1.y){
+        return false
+    }else {
+        return true
+    }
+
 };
 
 
