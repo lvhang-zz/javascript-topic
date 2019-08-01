@@ -131,7 +131,7 @@ const isOverlap = (rect1, rect2) => {
 };
 
 
-/**五 完成几个 DOM 元素类名操作的工具方法：
+/** 五 完成几个 DOM 元素类名操作的工具方法：
  addClass(dom, name)：给 dom 元素添加类名 name
  removeClass(dom, name)：把 dom 元素的类名 name 删除
  hasClass(dom, name)：判断 dom 元素是否有类名 name
@@ -147,14 +147,14 @@ const hasClass = (dom, name) => {
 };
 
 
-/**请你给字符串都添加上原型方法 spacify，可以让一个字符串的每个字母都多出一个空格的间隔：***/
+/** 六 请你给字符串都添加上原型方法 spacify，可以让一个字符串的每个字母都多出一个空格的间隔：***/
 String.prototype.spacify = function () {
     return this.split('').join(" ");
 };
 // console.log("2131231".spacify());
 
 
-/** 现在有一个数组存放字符串数据：
+/** 七 现在有一个数组存放字符串数据：
 
  ['item1', 'item2', 'item3', 'item4', 'item5']
  有另外一个数组存放一组对象：
@@ -187,7 +187,7 @@ const injectSections = (items, sections) => {
    for(var i = 0;i < sections.length;i++){
        arr.splice(sections[i].index + i,0,sections[i].content);
    }
-   console.log(arr);
+   // console.log(arr);
    return arr;
 
 };
@@ -198,6 +198,90 @@ let sections = [
     { content: 'section3', index: 3 }
 ];
 injectSections(items,sections);
+
+/** 八 完成 isSameSet 函数，它接受了两个 Set 对象作为参数，请你返回 true/false 来表明这两个 set 的内容是否完全一致，例如：**/
+
+const a = {};
+const b = 1;
+const c = 'ScriptOJ';
+
+const set1 = new Set([a, b, c]);
+const set2 = new Set([a, c, b]);
+const isSameSet = (s1, s2) => {
+    if (s1.size !== s2.size) {
+        return false;
+    }
+    return [...s1].every(i => s2.has(i))
+};
+/** 九 编写一个函数 unique(arr)，返回一个去除数组内重复的元素的数组。例如：unique([0, 1, 2, 2, 3, 3, 4]) // => [0, 1, 2, 3, 4]unique([0, 1, '1', '1', 2]) // => [0, 1, '1', 2]**/
+//简单方法
+const unique = function (arr) {
+    let newArr = [];
+    arr.forEach((item)=>{
+        if(newArr.indexOf(item) < 0){
+            newArr.push(item);
+        }
+    });
+    return newArr;
+};
+let arr = [1,232,323,213,4324,2122,22,12,21,1,1,1,12,22,22,223,33,33,33];
+//方法2（最优方法） new Set() 生成 Set 对象(类数组) Array.from() 转化为数组
+const unique1 = function (arr) {
+    return Array.from(new Set(arr)); // 一行代码解决
+};
+
+
+/**
+ * 请你给原生的 Map 添加方法 filterKeys 和 filterValues，可以类似于于数组方法的 filter。它们分别可以对 Map 的键和值进行筛选，它们会返回一个新的 Map， 是对原有的 Map 的筛选结果，例如：
+ const m = new Map([['Jerry', 12], ['Jimmy', 13], ['Tomy', 14]])
+ m.filterKeys((key) => key.startsWith('J')) // => Map { Jerry => 12, Jimmy => 13 }
+ m.filterValues((val) => val >= 13) // => Map { Jimmy => 13, Tomy => 14  }
+ // 原有的 map 保持不变
+ console.log(m) // => Map { Jerry => 12 , Jimmy => 13, Tomy => 14 }**/
+
+const m = new Map([['Jerry', 12], ['Jimmy', 13], ['Tomy', 14]])
+Map.prototype.filterKeys = function(fn) {
+    return new Map([...this].filter(([k, v]) => fn(k)));
+}
+
+Map.prototype.filterValues = function(fn) {
+    return new Map([...this].filter(([k, v]) => fn(v)));
+}
+
+
+
+/**完成将 toChineseNum， 可以将数字转换成中文大写的表示，处理到万级别，例如 toChineseNum(12345)，返回 一万二千三百四十五。**/
+const toChineseNum = (num) => {
+    var numArr = num.toString().split('').reverse();
+    console.log(numArr);
+    var keys = ['零','一','二','三','四','五','六','七','八','九'];
+    var counts = ['','十','百','千','万'];
+    var numStr = [];
+    numArr.forEach((item,index)=>{
+        numStr.push(keys[Number(item)] + (keys[Number(item)]=="零"?'':counts[index]))
+    });
+    var indexL = 0;
+    numStr.forEach((item,index)=>{
+        if(numStr[indexL] == "零"){
+            numStr[indexL] = "";
+            indexL+=1
+        }
+    });
+    numStr.forEach((item,index)=>{
+        if(item == "零" && numStr[index+1] == "零"){
+            numStr[index] = "";
+        }
+    });
+    return numStr.reverse().join('');
+};
+toChineseNum(99990);
+
+
+
+
+
+
+
 
 
 
